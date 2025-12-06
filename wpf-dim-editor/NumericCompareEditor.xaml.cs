@@ -103,8 +103,8 @@ namespace wpf_dim_editor
             if (_isUpdatingText || ViewModel == null)
                 return;
 
-            // Try to parse in real-time for live preview (optional)
-            // For now, we validate only on lost focus or Enter key
+            // Text changes are validated on lost focus or Enter key press
+            // This keeps validation non-blocking
         }
 
         /// <summary>

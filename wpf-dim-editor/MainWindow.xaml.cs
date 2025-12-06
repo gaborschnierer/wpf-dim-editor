@@ -10,6 +10,9 @@ namespace wpf_dim_editor
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Minimum value constraint for dimensions
+        private const double MinimumDimension = 50.0;
+
         // ViewModels for each dimension editor
         private NumericCompareEditorViewModel? _widthViewModel;
         private NumericCompareEditorViewModel? _heightViewModel;
@@ -64,7 +67,7 @@ namespace wpf_dim_editor
         {
             if (_widthViewModel != null)
             {
-                var newWidth = Math.Max(50, _widthViewModel.CurrentValue); // Minimum width
+                var newWidth = Math.Max(MinimumDimension, _widthViewModel.CurrentValue);
                 SampleRectangle.Width = newWidth;
                 
                 // Update width dimension line endpoints
@@ -109,7 +112,7 @@ namespace wpf_dim_editor
         {
             if (_heightViewModel != null)
             {
-                var newHeight = Math.Max(50, _heightViewModel.CurrentValue); // Minimum height
+                var newHeight = Math.Max(MinimumDimension, _heightViewModel.CurrentValue);
                 SampleRectangle.Height = newHeight;
                 
                 // Update height dimension line
@@ -146,7 +149,7 @@ namespace wpf_dim_editor
         {
             if (_xPositionViewModel != null)
             {
-                var newX = Math.Max(50, _xPositionViewModel.CurrentValue);
+                var newX = Math.Max(MinimumDimension, _xPositionViewModel.CurrentValue);
                 Canvas.SetLeft(SampleRectangle, newX);
                 
                 // Update X position dimension line
