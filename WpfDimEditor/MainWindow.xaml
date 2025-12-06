@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfDimEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDimEditor"
+        xmlns:controls="clr-namespace:WpfDimEditor.Controls"
+        mc:Ignorable="d"
+        Title="WPF DIM Editor Demo" Height="500" Width="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Title -->
+        <TextBlock Grid.Row="0" 
+                   Text="Numeric Compare Editor Demo"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+        
+        <!-- Canvas Demo -->
+        <Canvas Grid.Row="1" Background="#F5F5F5">
+            <!-- Rectangle -->
+            <Rectangle x:Name="DemoRectangle"
+                       Fill="#4A90E2"
+                       Stroke="#2E5C8A"
+                       StrokeThickness="2"
+                       Canvas.Left="100"
+                       Canvas.Top="100"
+                       Width="200"
+                       Height="150"/>
+            
+            <!-- Editor for X Position -->
+            <StackPanel Canvas.Left="20" Canvas.Top="20" Width="220">
+                <TextBlock Text="X Position:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <controls:NumericCompareEditor x:Name="EditorX"/>
+            </StackPanel>
+            
+            <!-- Editor for Y Position -->
+            <StackPanel Canvas.Left="20" Canvas.Top="80" Width="220">
+                <TextBlock Text="Y Position:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <controls:NumericCompareEditor x:Name="EditorY"/>
+            </StackPanel>
+            
+            <!-- Editor for Width -->
+            <StackPanel Canvas.Left="20" Canvas.Top="140" Width="220">
+                <TextBlock Text="Width:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <controls:NumericCompareEditor x:Name="EditorWidth"/>
+            </StackPanel>
+        </Canvas>
+    </Grid>
+</Window>
