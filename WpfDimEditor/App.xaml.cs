@@ -10,4 +10,3 @@ namespace WpfDimEditor;
 public partial class App : Application
 {
 }
-
