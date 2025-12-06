@@ -1,0 +1,107 @@
+<UserControl x:Class="wpf_dim_editor.NumericCompareEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wpf_dim_editor"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="200">
+    <Grid>
+        <!-- Main inline layout: TextBox + muted original label -->
+        <StackPanel Orientation="Horizontal" Background="Transparent">
+            <TextBox x:Name="ValueTextBox"
+                     Width="80"
+                     VerticalAlignment="Center"
+                     Padding="2"
+                     GotFocus="ValueTextBox_GotFocus"
+                     LostFocus="ValueTextBox_LostFocus"
+                     PreviewKeyDown="ValueTextBox_PreviewKeyDown"
+                     TextChanged="ValueTextBox_TextChanged" />
+            
+            <TextBlock x:Name="OriginalValueLabel"
+                       VerticalAlignment="Center"
+                       Margin="5,0,0,0"
+                       FontSize="10"
+                       Foreground="#888888"
+                       Text="{Binding OriginalValueText, FallbackValue='(orig: 0 mm)'}" />
+        </StackPanel>
+
+        <!-- Popup showing comparison details -->
+        <Popup x:Name="ComparePopup"
+               PlacementTarget="{Binding ElementName=ValueTextBox}"
+               Placement="Bottom"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               PopupAnimation="Fade">
+            <Border Background="White"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Padding="10"
+                    CornerRadius="3">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.3"/>
+                </Border.Effect>
+                
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" FontSize="11" Foreground="#555555" Margin="0,0,0,5">
+                        Dimension Comparison
+                    </TextBlock>
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Original Value -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="Original:" 
+                                   FontSize="11"
+                                   Margin="0,2,10,2"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" 
+                                   Text="{Binding OriginalValueText, FallbackValue='0 mm'}"
+                                   FontSize="11"
+                                   Margin="0,2,0,2"/>
+
+                        <!-- Current Value -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" 
+                                   Text="Current:" 
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Margin="0,2,10,2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" 
+                                   Text="{Binding CurrentValueText, FallbackValue='0 mm'}"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Margin="0,2,0,2"/>
+
+                        <!-- Delta -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                   Text="Delta:" 
+                                   FontSize="11"
+                                   Margin="0,2,10,5"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" 
+                                   Text="{Binding DeltaText, FallbackValue='+0 mm'}"
+                                   FontSize="11"
+                                   Foreground="{Binding DeltaBrush, FallbackValue=Gray}"
+                                   Margin="0,2,0,5"/>
+
+                        <!-- Revert Button -->
+                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                Content="Revert to Original"
+                                Command="{Binding RevertCommand}"
+                                Padding="5,3"
+                                FontSize="10"
+                                HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>
