@@ -1,0 +1,129 @@
+<Window x:Class="wpf_dim_editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf_dim_editor"
+        mc:Ignorable="d"
+        Title="WPF Dimension Editor - Prototype" Height="600" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Dimension Editor Prototype" 
+                           Foreground="White" 
+                           FontSize="18" 
+                           FontWeight="Bold"/>
+                <TextBlock Text="Click dimension editors to compare values. Use Up/Down arrows to adjust (Shift=larger step, Ctrl=finer step). Press Esc to revert."
+                           Foreground="#ECF0F1"
+                           FontSize="11"
+                           Margin="0,5,0,0"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main drawing area -->
+        <Canvas Grid.Row="1" x:Name="DrawingCanvas" Background="#F8F9FA">
+            
+            <!-- Placeholder drawing area border -->
+            <Border Canvas.Left="50" Canvas.Top="50" 
+                    Width="800" Height="450"
+                    BorderBrush="#BDC3C7" 
+                    BorderThickness="2"
+                    Background="White"
+                    CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="8" Opacity="0.2"/>
+                </Border.Effect>
+            </Border>
+
+            <!-- Title for drawing area -->
+            <TextBlock Canvas.Left="60" Canvas.Top="60"
+                       Text="Technical Drawing Area (Placeholder)"
+                       FontSize="12"
+                       Foreground="#7F8C8D"
+                       FontStyle="Italic"/>
+
+            <!-- Sample Rectangle (responds to dimension editors) -->
+            <Rectangle x:Name="SampleRectangle"
+                       Canvas.Left="250" 
+                       Canvas.Top="150"
+                       Width="400" 
+                       Height="250"
+                       Fill="#3498DB"
+                       Opacity="0.3"
+                       Stroke="#2980B9"
+                       StrokeThickness="2"/>
+
+            <!-- Dimension Editor 1: Width -->
+            <local:NumericCompareEditor x:Name="WidthEditor"
+                                        Canvas.Left="350"
+                                        Canvas.Top="110"/>
+
+            <!-- Width dimension line -->
+            <Line X1="250" Y1="130" X2="650" Y2="130"
+                  Stroke="#34495E" StrokeThickness="1"/>
+            <Line X1="250" Y1="125" X2="250" Y2="135"
+                  Stroke="#34495E" StrokeThickness="1"/>
+            <Line X1="650" Y1="125" X2="650" Y2="135"
+                  Stroke="#34495E" StrokeThickness="1"/>
+
+            <!-- Dimension Editor 2: Height -->
+            <local:NumericCompareEditor x:Name="HeightEditor"
+                                        Canvas.Left="670"
+                                        Canvas.Top="250"/>
+
+            <!-- Height dimension line -->
+            <Line X1="670" Y1="150" X2="670" Y2="400"
+                  Stroke="#34495E" StrokeThickness="1"/>
+            <Line X1="665" Y1="150" X2="675" Y2="150"
+                  Stroke="#34495E" StrokeThickness="1"/>
+            <Line X1="665" Y1="400" X2="675" Y2="400"
+                  Stroke="#34495E" StrokeThickness="1"/>
+
+            <!-- Dimension Editor 3: X Position -->
+            <local:NumericCompareEditor x:Name="XPositionEditor"
+                                        Canvas.Left="130"
+                                        Canvas.Top="280"/>
+
+            <!-- X position dimension line -->
+            <Line X1="50" Y1="275" X2="250" Y2="275"
+                  Stroke="#E67E22" StrokeThickness="1"
+                  StrokeDashArray="2,2"/>
+            <Line X1="50" Y1="270" X2="50" Y2="280"
+                  Stroke="#E67E22" StrokeThickness="1"/>
+            <Line X1="250" Y1="270" X2="250" Y2="280"
+                  Stroke="#E67E22" StrokeThickness="1"/>
+
+            <!-- Legend -->
+            <Border Canvas.Left="60" Canvas.Top="420"
+                    Background="White"
+                    BorderBrush="#BDC3C7"
+                    BorderThickness="1"
+                    Padding="10"
+                    CornerRadius="3">
+                <StackPanel>
+                    <TextBlock Text="Dimension Editors:" FontWeight="Bold" FontSize="11" Margin="0,0,0,5"/>
+                    <TextBlock FontSize="10" Margin="0,2">
+                        <Run Text="• Width Editor:" FontWeight="Bold"/>
+                        <Run Text="Controls rectangle width"/>
+                    </TextBlock>
+                    <TextBlock FontSize="10" Margin="0,2">
+                        <Run Text="• Height Editor:" FontWeight="Bold"/>
+                        <Run Text="Controls rectangle height"/>
+                    </TextBlock>
+                    <TextBlock FontSize="10" Margin="0,2">
+                        <Run Text="• X Position Editor:" FontWeight="Bold"/>
+                        <Run Text="Controls rectangle horizontal position"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+        </Canvas>
+    </Grid>
+</Window>
